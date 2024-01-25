@@ -14,17 +14,17 @@ def main(dataset="concept-MNIST"):
     config = dict(
         max_num_of_new_concepts = 8,
         batch_size = 64,
-        n_epochs = 2,
+        n_epochs = 20,
         epsilon = 0.4,
         alpha = 1e-2,
-        num_iter = 1,
+        num_iter = 20,
         y_targ = 2,
         dataset = 'concept-MNIST'
     )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     experiments = []
     if dataset == "concept-MNIST":
-        for i in range(config.max_num_of_new_concepts):
+        for i in range(config['max_num_of_new_concepts']):
             experiment = {
                 "num_of_new_concepts": i
             }
@@ -32,8 +32,8 @@ def main(dataset="concept-MNIST"):
             training_data = MNISTDatasetWithConcepts(split = 'train', num_classes = 10, transform=ToTensor(), num_of_new_concepts=i)
             test_data = MNISTDatasetWithConcepts(split = 'test', num_classes = 10, transform=ToTensor(), num_of_new_concepts=i)
 
-            training_data_loader = torch.utils.data.DataLoader(training_data, batch_size=config.batch_size, shuffle=True)
-            test_data_loader = DataLoader(test_data, batch_size=config.batch_size, shuffle=True)
+            training_data_loader = torch.utils.data.DataLoader(training_data, batch_size=config["batch_size"], shuffle=True)
+            test_data_loader = DataLoader(test_data, batch_size=config["batch_size"], shuffle=True)
             
             # Train the models on the training data
             print("Training the models on the orginal training data")
@@ -47,11 +47,11 @@ def main(dataset="concept-MNIST"):
 
             # Training the models
             print("Training the sequential model")
-            sequential_trainer.train(training_data_loader, config.n_epochs)
+            sequential_trainer.train(training_data_loader, config["n_epochs"])
             print("Training the joint model")
-            joint_trainer.train(training_data_loader, config.n_epochs)
+            joint_trainer.train(training_data_loader, config["n_epochs"])
             print("Training the CNN model")
-            cnn_trainer.train(training_data_loader, config.n_epochs)
+            cnn_trainer.train(training_data_loader, config["n_epochs"])
 
             # Test the models on the test data
             print("Testing the models on the test data")
@@ -83,11 +83,11 @@ def main(dataset="concept-MNIST"):
             adversarial_trainer = AdversarialTrainer()
             
             # Attack the models
-            attacker = Attacker(config.batch_size)
+            attacker = Attacker(config["batch_size"])
             print("Attacking the models")
-            delta_sequential = attacker.pgd_linf_targ(sequential_model, test_data_loader, config.epsilon, config.alpha, config.num_iter, config.y_targ)
-            delta_joint = attacker.pgd_linf_targ(joint_model, test_data_loader, config.epsilon, config.alpha, config.num_iter, config.y_targ)
-            delta_cnn = attacker.pgd_linf_targ(cnn_model, test_data_loader, config.epsilon, config.alpha, config.num_iter, config.y_targ)
+            delta_sequential = attacker.pgd_linf_targ(sequential_model, test_data_loader, config["epsilon"], config["alpha"], config["num_iter"], config["y_targ"])
+            delta_joint = attacker.pgd_linf_targ(joint_model, test_data_loader, config["epsilon"], config["alpha"], config["num_iter"], config["y_targ"])
+            delta_cnn = attacker.pgd_linf_targ(cnn_model, test_data_loader, config["epsilon"], config["alpha"], config["num_iter"], config["y_targ"])
             
             # Testing the models on the adversarail data
             print("Testing the models on the adversarial data")
@@ -105,11 +105,11 @@ def main(dataset="concept-MNIST"):
             # Adversarial training for each model
             print("Adversarial training for each model")
             print("Adversarial training for the sequential model")
-            robust_sequential_model = adversarial_trainer.train_model(sequential_model, config.num_iter, training_data_loader, test_data_loader)
+            robust_sequential_model = adversarial_trainer.train_model(sequential_model, config["num_iter"], training_data_loader, test_data_loader)
             print("Adversarial training for the joint model")
-            robust_joint_model = adversarial_trainer.train_model(joint_model, config.num_iter, training_data_loader, test_data_loader)
+            robust_joint_model = adversarial_trainer.train_model(joint_model, config["num_iter"], training_data_loader, test_data_loader)
             print("Adversarial training for the CNN model")
-            robust_cnn_model = adversarial_trainer.train_model(cnn_model, config.num_iter, training_data_loader, test_data_loader)
+            robust_cnn_model = adversarial_trainer.train_model(cnn_model, config["num_iter"], training_data_loader, test_data_loader)
 
             # Test the models on the test data
             print("Testing the models on the test data")
@@ -148,10 +148,10 @@ def main(dataset="concept-MNIST"):
             experiments.append(experiment)
     # creating a dataframe from the results
     df = pd.DataFrame(experiments)
-    df.to_csv(rf"../results/Experiment 4/{config.dataset}.csv", index=False)
+    df.to_csv(rf"../results/Experiment 4/{config['dataset']}.csv", index=False)
     # saving the config file
     import json
-    with open(rf"../results/Experiment 4/{config.dataset}_config.json", 'w') as f:
+    with open(rf"../results/Experiment 4/{config['dataset']}_config.json", 'w') as f:
         json.dump(config, f, indent=4)
 
 if __name__ == "__main__":
