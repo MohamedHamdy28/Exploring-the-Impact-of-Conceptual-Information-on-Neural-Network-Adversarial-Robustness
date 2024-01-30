@@ -1,7 +1,6 @@
 from mimetypes import init
 from pyexpat import model
 import torch
-import torch.nn as nn
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
