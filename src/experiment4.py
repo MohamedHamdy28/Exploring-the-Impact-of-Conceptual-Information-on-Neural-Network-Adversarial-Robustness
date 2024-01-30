@@ -9,7 +9,10 @@ from torch.utils.data import DataLoader
 from adversarial_trainer import AdversarialTrainer
 import pandas as pd
 import os
+<<<<<<< HEAD
 import os
+=======
+>>>>>>> 92967c04928c8845205e25cdc2c804511f943e11
 
 def main(dataset="concept-MNIST"):
     # hyperparameters
@@ -17,11 +20,17 @@ def main(dataset="concept-MNIST"):
         max_num_of_new_concepts = 8,
         batch_size = 64,
         n_epochs = 10,
+<<<<<<< HEAD
         n_epochs = 10,
         epsilon = 0.4,
         alpha = 1e-2,
         num_iter = 10,
         num_iter = 10,
+=======
+        epsilon = 0.4,
+        alpha = 1e-2,
+        num_iter = 10,
+>>>>>>> 92967c04928c8845205e25cdc2c804511f943e11
         y_targ = 2,
         dataset = 'concept-MNIST'
     )
@@ -31,8 +40,12 @@ def main(dataset="concept-MNIST"):
     print(f"Usinf device: {device}")
     experiments = []
     if dataset == "concept-MNIST":
+<<<<<<< HEAD
         for i in range(7, config["max_num_of_new_concepts"]+1):
             print(f"Running with {i} concept(s) ")
+=======
+        for i in range(config['max_num_of_new_concepts']):
+>>>>>>> 92967c04928c8845205e25cdc2c804511f943e11
             experiment = {
                 "num_of_new_concepts": i
             }
@@ -40,19 +53,27 @@ def main(dataset="concept-MNIST"):
             training_data = MNISTDatasetWithConcepts(split = 'train', num_classes = 10, transform=ToTensor(), num_of_new_concepts=i)
             test_data = MNISTDatasetWithConcepts(split = 'test', num_classes = 10, transform=ToTensor(), num_of_new_concepts=i)
 
+<<<<<<< HEAD
             training_data_loader = torch.utils.data.DataLoader(training_data, batch_size=config['batch_size'], shuffle=True)
             test_data_loader = DataLoader(test_data, batch_size=config['batch_size'], shuffle=True)
+=======
+            training_data_loader = torch.utils.data.DataLoader(training_data, batch_size=config["batch_size"], shuffle=True)
+            test_data_loader = DataLoader(test_data, batch_size=config["batch_size"], shuffle=True)
+>>>>>>> 92967c04928c8845205e25cdc2c804511f943e11
             
-            # Train the models on the training data
-            print("Training the models on the orginal training data")
-            sequential_model = Sequential(i).to(device)
-            joint_model = Joint(i).to(device)
-            cnn_model = CNN().to(device)
-            sequential_trainer = Sequential_Trainer(sequential_model)
-            joint_trainer = Joint_Trainer(joint_model)
-            cnn_trainer = CNN_Trainer(cnn_model)
-            adversarial_trainer = AdversarialTrainer()
+            # Model paths
+            normal_model_paths = {
+                'sequential': rf"../models/Experiment 4/Trained on normal data/sequential_model_{i}.pt",
+                'joint': rf"../models/Experiment 4/Trained on normal data/joint_model_{i}.pt",
+                'cnn': rf"../models/Experiment 4/Trained on normal data/cnn_model_{i}.pt"
+            }
+            adv_model_paths = {
+                'sequential': rf"../models/Adversarially trained models/robust_sequential_model_{i}.pt",
+                'joint': rf"../models/Adversarially trained models/robust_joint_model_{i}.pt",
+                'cnn': rf"../models/Adversarially trained models/robust_cnn_model_{i}.pt"
+            }
 
+<<<<<<< HEAD
             # Training the models
             print("Training the sequential model")
             sequential_trainer.train(training_data_loader, config['n_epochs'])
@@ -60,20 +81,41 @@ def main(dataset="concept-MNIST"):
             joint_trainer.train(training_data_loader, config['n_epochs'])
             print("Training the CNN model")
             cnn_trainer.train(training_data_loader, config['n_epochs'])
+=======
+            # Initialize models
+            models = {
+                'sequential': Sequential(i).to(device),
+                'joint': Joint(i).to(device),
+                'cnn': CNN().to(device)
+            }
+            trainers = {
+                'sequential': Sequential_Trainer(models['sequential']),
+                'joint': Joint_Trainer(models['joint']),
+                'cnn': CNN_Trainer(models['cnn'])
+            }
+            attackers = {
+                'sequential': Attacker(models['sequential'], config, device),
+                'joint': Attacker(models['joint'], config, device),
+                'cnn': Attacker(models['cnn'], config, device)
+            }
+>>>>>>> 92967c04928c8845205e25cdc2c804511f943e11
 
-            # Test the models on the test data
-            print("Testing the models on the test data")
-            sequential_acc = sequential_trainer.test(test_data_loader)
-            joint_acc = joint_trainer.test(test_data_loader)
-            cnn_acc = cnn_trainer.test(test_data_loader)
-            experiment['Sequential model accuracy on normal images'] = sequential_acc
-            experiment['Joint model accuracy on normal images'] = joint_acc
-            experiment['CNN model accuracy on normal images'] = cnn_acc
+            # Train or load normal models
+            for model_key, model in models.items():
+                if os.path.exists(normal_model_paths[model_key]):
+                    print(f"{model_key} model found, loading...")
+                    model.load_state_dict(torch.load(normal_model_paths[model_key]))
+                else:
+                    print(f"Training the {model_key} model")
+                    trainers[model_key].train(training_data_loader, config["n_epochs"])
+                    torch.save(model.state_dict(), normal_model_paths[model_key])
 
-            print(f"Sequential model accuracy: {sequential_acc}")
-            print(f"Joint model accuracy: {joint_acc}")
-            print(f"CNN model accuracy: {cnn_acc}")
+                # Test normal model
+                acc = trainers[model_key].test(test_data_loader)
+                experiment[f'{model_key} model accuracy on normal images'] = acc
+                print(f"{model_key} model accuracy: {acc}")
 
+<<<<<<< HEAD
             # TODO: save the models
             print(f"Saving the models...")
             torch.save(sequential_model.state_dict(), rf"../models/Experiment 4/Trained on normal data/sequential_model_cons{i}.pt")
@@ -174,6 +216,48 @@ def main(dataset="concept-MNIST"):
     import json
     with open(rf"../results/Experiment 4/{config['dataset']}_config.json", 'w') as f:
     with open(rf"../results/Experiment 4/{config['dataset']}_config.json", 'w') as f:
+=======
+            # Train or load adversarially trained models
+            for model_key, model in models.items():
+                if os.path.exists(adv_model_paths[model_key]):
+                    print(f"Robust {model_key} model found, loading...")
+                    model.load_state_dict(torch.load(adv_model_paths[model_key]))
+                else:
+                    print(f"Adversarial training for the {model_key} model")
+                    attackers[model_key].train(training_data_loader, config["n_epochs"], epsilon=config["epsilon"], alpha=config["alpha"], num_iter=config["num_iter"], y_targ=config["y_targ"])
+                    torch.save(model.state_dict(), adv_model_paths[model_key])
+
+                # Test adversarially trained model
+                acc = trainers[model_key].test(test_data_loader)
+                experiment[f'{model_key} model accuracy on normal images after adversarial training'] = acc
+                print(f"{model_key} model accuracy after adversarial training: {acc}")
+
+            # save the results
+            experiments.append(experiment)
+    # Define the path to the experiment results file
+    results_file_path = rf"../results/Experiment 4/{config['dataset']}.csv"
+
+    # Check if the experiments file exists
+    if os.path.exists(results_file_path):
+        print(f"Experiments file found, loading existing results...")
+        # Load the existing experiments
+        existing_df = pd.read_csv(results_file_path)
+        # Convert the current experiments to a DataFrame
+        new_df = pd.DataFrame(experiments)
+        # Append the new experiments to the existing ones
+        updated_df = pd.concat([existing_df, new_df], ignore_index=True)
+    else:
+        print("No existing experiments file found, creating new results...")
+        # Convert the current experiments to a DataFrame
+        updated_df = pd.DataFrame(experiments)
+
+    # Save the updated experiments to the CSV file
+    updated_df.to_csv(results_file_path, index=False)
+    print(f"Updated results saved to {results_file_path}")
+    # saving the config file
+    import json
+    with open(rf"../results/Experiment 4/{config['dataset']}_config.json", 'w') as f:
+>>>>>>> 92967c04928c8845205e25cdc2c804511f943e11
         json.dump(config, f, indent=4)
 
 if __name__ == "__main__":
