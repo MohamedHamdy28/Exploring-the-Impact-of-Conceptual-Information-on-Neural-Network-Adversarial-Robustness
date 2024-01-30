@@ -9,6 +9,7 @@ from torch.utils.data import DataLoader
 from adversarial_trainer import AdversarialTrainer
 import pandas as pd
 import os
+import os
 
 def main(dataset="concept-MNIST"):
     # hyperparameters
@@ -16,8 +17,10 @@ def main(dataset="concept-MNIST"):
         max_num_of_new_concepts = 8,
         batch_size = 64,
         n_epochs = 10,
+        n_epochs = 10,
         epsilon = 0.4,
         alpha = 1e-2,
+        num_iter = 10,
         num_iter = 10,
         y_targ = 2,
         dataset = 'concept-MNIST'
@@ -169,6 +172,7 @@ def main(dataset="concept-MNIST"):
 
     # saving the config file
     import json
+    with open(rf"../results/Experiment 4/{config['dataset']}_config.json", 'w') as f:
     with open(rf"../results/Experiment 4/{config['dataset']}_config.json", 'w') as f:
         json.dump(config, f, indent=4)
 
