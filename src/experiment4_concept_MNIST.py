@@ -28,7 +28,7 @@ def main(dataset="concept-MNIST"):
     print(f"Usinf device: {device}")
     experiments = []
     if dataset == "concept-MNIST":
-        for i in range(7, config["max_num_of_new_concepts"]+1):
+        for i in range(0, config["max_num_of_new_concepts"]+1):
             print(f"Running with {i} concept(s) ")
             experiment = {
                 "num_of_new_concepts": i
