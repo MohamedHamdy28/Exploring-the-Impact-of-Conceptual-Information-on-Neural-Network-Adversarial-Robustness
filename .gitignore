@@ -4,3 +4,4 @@ models\Adversarially trained models
 models\Experiment 4
 models/Adversarially trained models/*
 models/Adversarially trained models/robust_cnn_model_0.pt
+data
