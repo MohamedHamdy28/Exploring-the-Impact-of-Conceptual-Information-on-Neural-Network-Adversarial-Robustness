@@ -4,57 +4,70 @@ import torch
 from config import LR_DECAY_SIZE
 
 class SequentialTrainer:
-    def __init__(self, model):
+    def __init__(self, model, attributes_weights):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.model = model.to(self.device)
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = optim.SGD(self.model.parameters(), lr=0.001)
+        self.optimizer = optim.SGD(self.model.parameters(), lr=0.001, momentum=0.9)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=1000, gamma=0.1)
-        
+        self.weights_dict = attributes_weights
     def concepts_loss(self, predicted, y_true):
         total_loss = 0
         for i in range(0, predicted.shape[1], 2):
-            loss = self.criterion(predicted[:, i:i+2], y_true[:, int(i/2)].long())
+            # Retrieve the weights for the current attribute
+            # current_weights = self.weights_dict.get(i, torch.ones(predicted.shape[1]).to(self.device))
+            # print(i)
+            # print(self.weights_dict)
+            current_weights = self.weights_dict[int(i/2)]
+            # print(current_weights)
+            #print the typer of the current_weights
+            # print(current_weights.dtype)
+            criterion = nn.CrossEntropyLoss(weight=current_weights)
+            loss = criterion(predicted[:, i:i+2], y_true[:, int(i/2)].long())
             total_loss += loss
 
         return total_loss
-
-    def train_g(self, train_loader, n_epochs):
+    
+    def train_g(self, train_loader, validation_loader, n_epochs):
         self.model.g_model.train()
-        best_loss = 100000
+        best_loss = float('inf')  # Use float('inf') as the initial best loss
         for epoch in range(n_epochs):
             running_loss = 0.0
-            for i, data in enumerate(train_loader, 0):
-                inputs, labels, attributes = data
-                # attributes = torch.tensor(attributes, dtype=torch.float32)
-                attributes = torch.stack(attributes, dim=1)
-                # print(attributes.shape)
-                # print(attributes, attributes.shape)
-                inputs, labels, attributes = inputs.to(self.device), labels.to(self.device), attributes.to(self.device)
+            total = 0
+            for i, (inputs, labels, attributes) in enumerate(train_loader):
+                # Convert attributes list of tensors to a single tensor
+                attributes = torch.stack(attributes, dim=1).float()
+                inputs, attributes = inputs.to(self.device), attributes.to(self.device)
+                
                 self.optimizer.zero_grad()
                 outputs = self.model.g_model(inputs)
                 outputs = torch.stack(outputs, dim=1).squeeze(2)
-                # print(outputs.shape, attributes.shape)
-                # print(outputs, attributes)
                 loss = self.concepts_loss(outputs, attributes)
                 loss.backward()
                 self.optimizer.step()
+                self.scheduler.step()
                 running_loss += loss.item()
-                if i % 2000 == 1999:
-                    print('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / 2000))
-                    running_loss = 0.0
-            test_loss = self.test_g(train_loader)
-            if test_loss < best_loss:
-                best_loss = test_loss
-                torch.save(self.model.g_model.state_dict(), '../../models/Experiment 4 cub/g_model.pth')
+                total += attributes.size(0)
+            total_loss = running_loss / total
+            train_loss = self.test_g(train_loader, mode='train')
+            print(f"Epoch: {epoch+1}, Loss: {total_loss:.3f}")
+            val_loss = self.test_g(validation_loader, mode='validation')
+            if val_loss < best_loss:
+                best_loss = val_loss
+                torch.save(self.model.g_model.state_dict(), '../../models/Experiment 4 cub/g_model_with_weights.pth')
+            # printing if the learning rate changed or not
+            lr_before = self.optimizer.param_groups[0]['lr']
+            
+            lr_after = self.optimizer.param_groups[0]['lr']
+            if lr_before != lr_after:
+                print(f'Learning rate changed to {lr_after}')
 
-            self.scheduler.step()
         print('Finished Training')
 
-    def test_g(self, test_loader):
+    def test_g(self, test_loader, mode='test'):
         self.model.g_model.eval()
-        correct = 0
-        total = 0
+        correct, total = 0, 0
+        total_loss = 0
         with torch.no_grad():
             for data in test_loader:
                 images, labels, attributes = data
@@ -63,10 +76,15 @@ class SequentialTrainer:
                 outputs = self.model.g_model(images)
                 outputs = torch.stack(outputs, dim=1).squeeze(2)
                 loss = self.concepts_loss(outputs, attributes)
-                total += labels.size(0)
-                correct += (loss == 0).sum().item()
-        print('Accuracy of the g model on the test images: %d %%' % (100 * correct / total))
-        return loss
+                total_loss += loss
+                for i in range(0, outputs.shape[1], 2):
+                    y_pred = outputs[:, i:i+2].argmax(dim=1)
+                    correct += (y_pred == attributes[:, int(i/2)]).sum().item()
+                    total += attributes.size(0)
+        print(f'Accuracy of the g model on the {mode} images: %d %%' % (100 * correct / total))
+        total_loss /= total
+        print(f'Loss of the g model on the {mode} images: %.3f' % total_loss)
+        return total_loss
 
     def train_f(self, train_loader, n_epochs):
         self.model.f_model.train()

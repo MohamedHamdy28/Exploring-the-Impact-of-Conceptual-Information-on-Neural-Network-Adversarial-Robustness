@@ -61,6 +61,8 @@ class Sequential(nn.Module):
         x = torch.cat(x, dim=1)
         x = self.f_model(x)
         return x
+    def load_g(self, path):
+        self.g_model.load_state_dict(torch.load(path))
     
 class Joint(nn.Module):
     def __init__(self, n_concepts, num_classes):
