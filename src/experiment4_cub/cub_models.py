@@ -50,7 +50,7 @@ class Sequential(nn.Module):
     def __init__(self, n_concepts, num_classes):
         super(Sequential, self).__init__()
         self.n_concepts = n_concepts
-        self.g_model = ModelXtoC(pretrained=True, freeze=True, num_classes=num_classes, use_aux=False, n_attributes=n_concepts*2,
+        self.g_model = ModelXtoC(pretrained=True, freeze=True, num_classes=num_classes, use_aux=False, n_attributes=n_concepts,
                                  expand_dim=1, three_class=False)
         self.f_model = ModelOracleCtoY(n_class_attr=1, n_attributes=n_concepts, num_classes=num_classes, expand_dim=128)
 

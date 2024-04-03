@@ -13,17 +13,10 @@ class SequentialTrainer:
         self.weights_dict = attributes_weights
     def concepts_loss(self, predicted, y_true):
         total_loss = 0
-        for i in range(0, predicted.shape[1], 2):
-            # Retrieve the weights for the current attribute
-            # current_weights = self.weights_dict.get(i, torch.ones(predicted.shape[1]).to(self.device))
-            # print(i)
-            # print(self.weights_dict)
-            current_weights = self.weights_dict[int(i/2)]
-            # print(current_weights)
-            #print the typer of the current_weights
-            # print(current_weights.dtype)
-            criterion = nn.CrossEntropyLoss(weight=current_weights)
-            loss = criterion(predicted[:, i:i+2], y_true[:, int(i/2)].long())
+        for i in range(0, len(predicted)):
+            criterion = nn.BCEWithLogitsLoss(weight=self.weights_dict[i])
+            print(predicted.shape, y_true.shape)
+            loss = criterion(predicted[:, i], y_true[:, i])
             total_loss += loss
 
         return total_loss
