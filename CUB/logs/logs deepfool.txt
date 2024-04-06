@@ -1,0 +1,49 @@
+)
+Loaded Sequential_0005
+Attacking Images: 100%|██████████| 182/182 [22:05<00:00,  7.28s/it]
+Accuracy on adversarial examples: 43.61%
+0.4361408353469106
+Loaded Sequential_001
+Attacking Images: 100%|██████████| 182/182 [22:57<00:00,  7.57s/it]
+Accuracy on adversarial examples: 37.09%
+0.3709009319986193
+Loaded Sequential_0025
+Attacking Images: 100%|██████████| 182/182 [24:14<00:00,  7.99s/it]
+Accuracy on adversarial examples: 24.59%
+0.24594408008284432
+Loaded Sequential_005
+Attacking Images: 100%|██████████| 182/182 [23:40<00:00,  7.80s/it]
+Accuracy on adversarial examples: 13.77%
+0.1377286848463928
+Loaded joint_model_0005
+Attacking Images: 100%|██████████| 182/182 [21:04<00:00,  6.95s/it]
+Accuracy on adversarial examples: 38.45%
+0.38453572661373836
+Loaded joint_model_001
+Attacking Images: 100%|██████████| 182/182 [21:22<00:00,  7.05s/it]
+Accuracy on adversarial examples: 32.26%
+0.3225750776665516
+Loaded joint_model_0025
+Attacking Images: 100%|██████████| 182/182 [23:30<00:00,  7.75s/it]
+Accuracy on adversarial examples: 25.18%
+0.25181221953745253
+Loaded joint_model_005
+Attacking Images: 100%|██████████| 182/182 [23:04<00:00,  7.61s/it]
+Accuracy on adversarial examples: 15.59%
+0.1558508802209182
+Loaded standard_model_0005
+Attacking Images: 100%|██████████| 182/182 [21:32<00:00,  7.10s/it]
+Accuracy on adversarial examples: 48.27%
+0.4827407663099758
+Loaded standard_model_001
+Attacking Images: 100%|██████████| 182/182 [22:16<00:00,  7.34s/it]
+Accuracy on adversarial examples: 43.46%
+0.4345875043148084
+Loaded standard_model_0025
+Attacking Images: 100%|██████████| 182/182 [23:40<00:00,  7.80s/it]
+Accuracy on adversarial examples: 35.28%
+0.35277873662409387
+Loaded standard_model_005
+Attacking Images: 100%|██████████| 182/182 [24:33<00:00,  8.09s/it]
+Accuracy on adversarial examples: 24.66%
+0.2466344494304453

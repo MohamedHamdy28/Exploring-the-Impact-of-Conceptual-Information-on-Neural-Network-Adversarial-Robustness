@@ -1,0 +1,271 @@
+Loaded Sequential
+Training with eps 0.0005
+Accuracy on adversarial examples before adversarial training: 34.50%
+Loading widget...
+Loading widget...
+Accuracy on original examples after adversarial training: 58.56%
+0.0005
+Accuracy on adversarial examples: 44.92%
+0.001
+Accuracy on adversarial examples: 33.93%
+0.0025
+Accuracy on adversarial examples: 15.71%
+0.005
+Loading widget...
+Loading widget...
+Loading widget...
+Loading widget...
+Loading widget...
+Loading widget...
+Loading widget...
+Accuracy on adversarial examples: 6.03%
+Loaded Sequential
+Training with eps 0.001
+Loading widget...
+Accuracy on adversarial examples before adversarial training: 21.76%
+Loading widget...
+Loading widget...
+Loaded Sequential
+Training with eps 0.001
+Accuracy on adversarial examples before adversarial training: 21.76%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 123.63it/s]
+Adversarial training epochs: 100%
+ 3/3 [08:23<00:00, 167.82s/it]
+Accuracy on original examples after adversarial training: 55.18%
+0.0005
+Accuracy on adversarial examples: 47.20%
+0.001
+Accuracy on adversarial examples: 38.72%
+0.0025
+Accuracy on adversarial examples: 21.94%
+0.005
+Accuracy on adversarial examples: 9.99%
+Loaded Sequential
+Training with eps 0.0025
+Accuracy on adversarial examples before adversarial training: 15.41%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 127.59it/s]
+Adversarial training epochs: 100%
+ 3/3 [08:13<00:00, 164.51s/it]
+Accuracy on original examples after adversarial training: 49.65%
+0.0005
+Accuracy on adversarial examples: 45.05%
+0.001
+Accuracy on adversarial examples: 40.24%
+0.0025
+Accuracy on adversarial examples: 28.96%
+0.005
+Accuracy on adversarial examples: 17.10%
+Loaded Sequential
+Training with eps 0.005
+Loaded joint_model
+Training with eps 0.0005
+Accuracy on adversarial examples before adversarial training: 28.12%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 121.01it/s]
+Adversarial training epochs: 100%
+ 3/3 [08:13<00:00, 164.61s/it]
+Accuracy on original examples after adversarial training: 51.10%
+0.0005
+Accuracy on adversarial examples: 39.48%
+0.001
+Accuracy on adversarial examples: 30.04%
+0.0025
+Accuracy on adversarial examples: 12.73%
+0.005
+Error displaying widget: model not found
+Error displaying widget: model not found
+Error displaying widget: model not found
+Accuracy on adversarial examples: 4.95%
+Loaded joint_model
+Training with eps 0.001
+Loaded standard_model
+Training with eps 0.0005
+Accuracy on adversarial examples: 42.62%
+Accuracy on adversarial examples before adversarial training: 42.62%
+Error displaying widget: model not found
+Error displaying widget: model not found
+Accuracy on original examples after adversarial training: 61.79%
+0.0005
+Accuracy on adversarial examples: 48.25%
+0.001
+Accuracy on adversarial examples: 36.42%
+0.0025
+Accuracy on adversarial examples: 15.79%
+0.005
+Accuracy on adversarial examples: 5.99%
+Loaded standard_model
+Training with eps 0.001
+Accuracy on adversarial examples: 23.25%
+Accuracy on adversarial examples before adversarial training: 23.25%
+Error displaying widget: model not found
+Error displaying widget: model not found
+Accuracy on original examples after adversarial training: 62.17%
+0.0005
+Accuracy on adversarial examples: 52.90%
+0.001
+Accuracy on adversarial examples: 43.82%
+0.0025
+Accuracy on adversarial examples: 24.38%
+0.005
+Accuracy on adversarial examples: 10.46%
+Loaded standard_model
+Training with eps 0.0025
+Accuracy on adversarial examples: 6.68%
+Accuracy on adversarial examples before adversarial training: 6.68%
+Error displaying widget: model not found
+Error displaying widget: model not found
+Accuracy on original examples after adversarial training: 61.70%
+0.0005
+Accuracy on adversarial examples: 57.06%
+0.001
+Accuracy on adversarial examples: 51.02%
+0.0025
+Accuracy on adversarial examples: 37.28%
+0.005
+Accuracy on adversarial examples: 21.19%
+Loaded standard_model
+Training with eps 0.005
+Accuracy on adversarial examples: 2.95%
+Accuracy on adversarial examples before adversarial training: 2.95%
+Error displaying widget: model not found
+Error displaying widget: model not found
+Accuracy on original examples after adversarial training: 58.91%
+0.0005
+Accuracy on adversarial examples: 55.29%
+0.001
+Accuracy on adversarial examples: 51.76%
+0.0025
+Accuracy on adversarial examples: 41.62%
+0.005
+Accuracy on adversarial examples: 28.14%
+
+Loaded joint_model
+Training with eps 0.001
+Accuracy on adversarial examples: 13.19%
+Accuracy on adversarial examples before adversarial training: 13.19%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 128.80it/s]
+Adversarial training epochs: 100%
+ 3/3 [08:18<00:00, 166.25s/it]
+Accuracy on original examples after adversarial training: 48.72%
+0.0005
+Accuracy on adversarial examples: 40.50%
+0.001
+Accuracy on adversarial examples: 32.67%
+0.0025
+Accuracy on adversarial examples: 18.80%
+0.005
+Accuracy on adversarial examples: 7.86%
+Loaded joint_model
+Training with eps 0.0025
+Accuracy on adversarial examples: 5.18%
+Accuracy on adversarial examples before adversarial training: 5.18%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 127.00it/s]
+Adversarial training epochs: 100%
+ 3/3 [08:20<00:00, 166.94s/it]
+Accuracy on original examples after adversarial training: 48.84%
+0.0005
+Accuracy on adversarial examples: 44.98%
+0.001
+Accuracy on adversarial examples: 39.93%
+0.0025
+Accuracy on adversarial examples: 28.82%
+0.005
+Accuracy on adversarial examples: 15.97%
+Loaded joint_model
+Training with eps 0.005
+Accuracy on adversarial examples: 4.37%
+Accuracy on adversarial examples before adversarial training: 4.37%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 140.45it/s]
+Adversarial training epochs: 100%
+ 3/3 [08:31<00:00, 171.30s/it]
+Accuracy on original examples after adversarial training: 44.70%
+0.0005
+Accuracy on adversarial examples: 41.02%
+0.001
+Accuracy on adversarial examples: 37.64%
+0.0025
+Accuracy on adversarial examples: 29.61%
+0.005
+Accuracy on adversarial examples: 19.21%
+Loaded standard_model
+Training with eps 0.0005
+Accuracy on adversarial examples: 42.62%
+Accuracy on adversarial examples before adversarial training: 42.62%
+Precompute adv samples: 100%
+ 1/1 [00:00<00:00, 130.11it/s]
+Adversarial training epochs:   0%
+ 0/3 [00:04<?, ?it/s]
+
+Loaded standard_model
+Training with eps 0.0005
+Accuracy on adversarial examples: 42.62%
+Accuracy on adversarial examples before adversarial training: 42.62%
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"63435e4f922c40d582448b39d0c4da18","version_major":2,"version_minor":0}
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"dbbc70d711104584913ce1390f46d51e","version_major":2,"version_minor":0}
+Accuracy on original examples after adversarial training: 61.79%
+0.0005
+Accuracy on adversarial examples: 48.25%
+0.001
+Accuracy on adversarial examples: 36.42%
+0.0025
+Accuracy on adversarial examples: 15.79%
+0.005
+Accuracy on adversarial examples: 5.99%
+Loaded standard_model
+Training with eps 0.001
+Accuracy on adversarial examples: 23.25%
+Accuracy on adversarial examples before adversarial training: 23.25%
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"d8a9f0fd7b8346de847cf12323b31d9f","version_major":2,"version_minor":0}
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"7f045fdb69e74614919ea1500874c0b2","version_major":2,"version_minor":0}
+Accuracy on original examples after adversarial training: 62.17%
+0.0005
+Accuracy on adversarial examples: 52.90%
+0.001
+Accuracy on adversarial examples: 43.82%
+0.0025
+Accuracy on adversarial examples: 24.38%
+0.005
+Accuracy on adversarial examples: 10.46%
+Loaded standard_model
+Training with eps 0.0025
+Accuracy on adversarial examples: 6.68%
+Accuracy on adversarial examples before adversarial training: 6.68%
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"a10d0346e3b64dc29e147ae2e9fc0c48","version_major":2,"version_minor":0}
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"a962d692da334378980c8cce0328adb1","version_major":2,"version_minor":0}
+Accuracy on original examples after adversarial training: 61.70%
+0.0005
+Accuracy on adversarial examples: 57.06%
+0.001
+Accuracy on adversarial examples: 51.02%
+0.0025
+Accuracy on adversarial examples: 37.28%
+0.005
+Accuracy on adversarial examples: 21.19%
+Loaded standard_model
+Training with eps 0.005
+Accuracy on adversarial examples: 2.95%
+Accuracy on adversarial examples before adversarial training: 2.95%
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"e0112190b5e0418bb10eac4418ebd9bd","version_major":2,"version_minor":0}
+Could not render content for 'application/vnd.jupyter.widget-view+json'
+{"model_id":"e241d3bfb1e347958e0d6c7f6c7d6a6b","version_major":2,"version_minor":0}
+Accuracy on original examples after adversarial training: 58.91%
+0.0005
+Accuracy on adversarial examples: 55.29%
+0.001
+Accuracy on adversarial examples: 51.76%
+0.0025
+Accuracy on adversarial examples: 41.62%
+0.005
+Accuracy on adversarial examples: 28.14%
